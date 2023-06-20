@@ -36,7 +36,7 @@ def retrieve_date_info(driver):
     
     except NoSuchElementException:
         # Handle the case where the search element or any other expected element is not found
-        return "Date not found"
+        return "Date not found, skipping..."
 
     except Exception as e:
         # Handle any other unexpected exception
@@ -44,7 +44,7 @@ def retrieve_date_info(driver):
         return "Date not found"
     
 def clear_input_box(driver):
-    input_box = driver.find_element(By.XPATH, "//label[@for='s_bk']")
+    input_box = driver.find_element(By.XPATH, "//input[@name='NO']")
     input_box.clear()
 
 def format_date(date):
@@ -73,6 +73,7 @@ click_booking_radio(driver)
 for entry in list_tracking_numbers: 
     fill_input(driver, entry)
     date = retrieve_date_info(driver)
+    
     try:
         date = format_date(date)
     except ValueError:
@@ -82,7 +83,9 @@ for entry in list_tracking_numbers:
     
     # append row into worksheet
     worksheet.append(row)
-
+    
+    clear_input_box(driver)
+    
 
 workbook.save("output/evergreen_shipping_dates_changes.xlsx")
 
