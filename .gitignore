@@ -1,0 +1,9 @@
+# Ignore list-trackers.txt
+list-trackers.txt
+
+# Ignore output folder
+output/
+
+# Ignore geckodriver.log
+geckodriver.log
+
